@@ -1,0 +1,6 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+t/Mojocoin-BitcoinClient.t
+lib/Mojocoin/BitcoinClient.pm
