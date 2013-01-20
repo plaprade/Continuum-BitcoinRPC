@@ -1,8 +1,6 @@
 use strict;
 use warnings;
 
-use lib '/home/nautilus/Projects/AnyEventX-CondVar/lib';
-
 use EV;
 use Test::More;
 use AnyEventX::CondVar;

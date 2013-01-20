@@ -2,8 +2,6 @@ package Mojocoin::BitcoinClient;
 
 use v5.14.0;
 
-use lib '/home/nautilus/Projects/AnyEventX-CondVar/lib';
-
 use Moose;
 use namespace::autoclean;
 
