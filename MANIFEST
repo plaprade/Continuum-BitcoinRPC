@@ -1,6 +1,7 @@
 Changes
 Makefile.PL
 MANIFEST
-README
+README.pod
+UNLICENSE
 t/Mojocoin-BitcoinClient.t
 lib/Mojocoin/BitcoinClient.pm
