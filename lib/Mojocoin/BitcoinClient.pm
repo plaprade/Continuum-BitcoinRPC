@@ -51,9 +51,12 @@ sub AUTOLOAD {
     my ( $self, @args ) = @_;
     my ( $method ) = our $AUTOLOAD =~ m/::(\w+)$/;
     $method =~ s/_//g;
-    cv_build { 
-        $self->_jsonrpc_client->call( lc( $method ), @args )
-    };
+    my $cv = AnyEventX::CondVar->new;
+    $self->_jsonrpc_client->call( lc( $method ), @args )->cb( sub {
+        my @res; eval { @res = shift->recv };
+        $cv->send( $@ ? undef : @res );
+    });
+    $cv;
 }
 
 __PACKAGE__->meta->make_immutable;
