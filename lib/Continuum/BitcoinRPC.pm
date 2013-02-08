@@ -117,5 +117,43 @@ values.
 Please head to the L<Continuum|http://github.com/ciphermonk/Continuum>
 project page for more details.
 
+=head2 Bugs
+
+Please report any bugs in the projects bug tracker:
+
+L<http://github.com/ciphermonk/Continuum-BitcoinRPC/issues>
+
+You can also submit a patch.
+
+=head2 Contributing
+
+We're glad you want to contribute! It's simple:
+
+=over
+
+=item * 
+Fork Continuum::BitcoinRPC
+
+=item *
+Create a branch C<git checkout -b my_branch>
+
+=item *
+Commit your changes C<git commit -am 'comments'>
+
+=item *
+Push the branch C<git push origin my_branch>
+
+=item *
+Open a pull request
+
+=back
+
+=head2 Supporting
+
+Like what you see? You can support the project by donating in
+L<Bitcoins|http://www.weusecoins.com/> to:
+
+B<17YWBJUHaiLjZWaCyPwcV8CJDpfoFzc8Gi>
+
 =cut
 
