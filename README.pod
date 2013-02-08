@@ -1,8 +1,0 @@
-=pod 
-
-=head2 Mojocoin-BitcoinClient
-
-! This is work is progress !
-  
-=cut
-

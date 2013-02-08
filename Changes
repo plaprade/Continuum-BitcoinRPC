@@ -1,6 +1,6 @@
-Revision history for Perl extension Mojocoin::BitcoinClient.
+Revision history for Perl extension Continuum::BitcoinRPC
 
 0.01  Fri Nov 16 12:17:39 2012
 	- original version; created by h2xs 1.23 with options
-		-AX Mojocoin::BitcoinClient
+		-AX Continuum::BitcoinRPC
 
