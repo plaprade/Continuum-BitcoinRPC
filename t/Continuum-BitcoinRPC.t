@@ -4,37 +4,45 @@ use warnings;
 use EV;
 use Test::More;
 use Data::Dumper;
+use File::Temp qw(tempdir);
+use POSIX ":sys_wait_h";
+use Cwd;
 
-my ($rpcuser, $rpcpassword);
+my ($port, $clicmd);
 
 BEGIN { 
-    my $bitcoinconf = "$ENV{HOME}/.bitcoin/bitcoin.conf";
-    open my ($bitcoinfh), $bitcoinconf;
-    unless ( $bitcoinfh ) {
-        fail "Can't read $bitcoinconf";
-        done_testing;
-    }
-    while ( <$bitcoinfh> ) {
-        if ( /^\s*rpcuser=\s*(?<username>.*)/ ) {
-            $rpcuser = $+{username};
-        } elsif ( /^\s*rpcpassword=\s*(?<password>.*)/ ) {
-            $rpcpassword = $+{password};
-        }
-    }
-
-    unless ( $rpcuser && $rpcpassword ) {
-        fail "Bitcoin RPC user or password not found";
-        done_testing;
-    }
-
     use_ok( 'Continuum::BitcoinRPC' ); 
     use_ok( 'Continuum' ); 
-};
+
+    my $tmp = tempdir(CLEANUP => 1);
+    $port = int(rand 32768) + 32768;
+    my $cmd = "bitcoind -testnet -rpcuser=test -rpcpassword=test -rpcport=$port";
+    $clicmd = "$cmd -rpcconnect=127.0.0.1";
+    my $pid = fork;
+    if ($pid == 0) {
+        chdir $tmp;
+        my $srvcmd = "$cmd -listen=0 -server -datadir='$tmp'";
+        exec $srvcmd;
+    } elsif ($pid < 0) {
+        fail "Could not launch bitcoind";
+        done_testing;
+    }
+
+    $SIG{CHLD} = sub {
+        while ((my $child = waitpid(-1, WNOHANG)) > 0) {
+            if ($child == $pid) {
+                die "bitcoind died";
+            }
+        }
+    };
+
+    sleep 1 while system("$clicmd getinfo 2>/dev/null") != 0;
+}
 
 my $client = Continuum::BitcoinRPC->new(
-    url => 'http://127.0.0.1:18332',
-    username => $rpcuser,
-    password => $rpcpassword,
+    url => "http://127.0.0.1:$port",
+    username => 'test',
+    password => 'test',
 );
 
 isa_ok( $client, 'Continuum::BitcoinRPC',
@@ -58,4 +66,6 @@ foreach my $method ( qw (
     cmp_ok( $client->$method( '' )->recv, '=~', qr/\w+/, $method );
 }
 
+system "$clicmd stop 2>/dev/null";
+wait;
 done_testing;
