@@ -26,6 +26,7 @@ BEGIN {
     } elsif ($pid < 0) {
         fail "Could not launch bitcoind";
         done_testing;
+        exit;
     }
 
     $SIG{CHLD} = sub {
