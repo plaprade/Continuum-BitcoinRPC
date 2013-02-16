@@ -171,6 +171,8 @@ L<EV|https://metacpan.org/module/EV> (for testing)
 
 =back
 
+In order to run tests, L<bitcoind|http://bitcoin.org> must be available in the application search path.
+
 =head2 Supporting
 
 Like what you see? You can support the project by donating in
