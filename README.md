@@ -86,6 +86,16 @@ We're glad you want to contribute! It's simple:
 - Push the branch `git push origin my_branch`
 - Open a pull request
 
+## Installing
+
+These are the modules on which this one depends:
+
+- [My fork of AnyEvent::JSONRPC](https://github.com/ciphermonk/anyevent-jsonrpc-perl)
+- [Continuum](https://github.com/ciphermonk/Continuum)
+- [Moose](https://metacpan.org/module/Moose)
+- [namespace:autoclean](https://metacpan.org/module/namespace::autoclean)
+- [EV](https://metacpan.org/module/EV) (for testing)
+
 ## Supporting
 
 Like what you see? You can support the project by donating in

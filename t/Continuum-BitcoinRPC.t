@@ -5,19 +5,26 @@ use EV;
 use Test::More;
 use Data::Dumper;
 
-BEGIN { 
+my ($rpcuser, $rpcpassword);
 
-    unless(
-        -f 'etc/username.key' &&
-        -f 'etc/password.key'
-    ) {
-        diag "Please setup a bitcoin RPC node and put your RPC "
-            . "username and password in etc/username.key and "
-            . "etc/password.key in this projects folder. Then run "
-            . "the test again";
-        fail "Test dependencies missing";
+BEGIN { 
+    my $bitcoinconf = "$ENV{HOME}/.bitcoin/bitcoin.conf";
+    open my ($bitcoinfh), $bitcoinconf;
+    unless ( $bitcoinfh ) {
+        fail "Can't read $bitcoinconf";
         done_testing;
-        exit;
+    }
+    while ( <$bitcoinfh> ) {
+        if ( /^\s*rpcuser=\s*(?<username>.*)/ ) {
+            $rpcuser = $+{username};
+        } elsif ( /^\s*rpcpassword=\s*(?<password>.*)/ ) {
+            $rpcpassword = $+{password};
+        }
+    }
+
+    unless ( $rpcuser && $rpcpassword ) {
+        fail "Bitcoin RPC user or password not found";
+        done_testing;
     }
 
     use_ok( 'Continuum::BitcoinRPC' ); 
@@ -26,8 +33,8 @@ BEGIN {
 
 my $client = Continuum::BitcoinRPC->new(
     url => 'http://127.0.0.1:18332',
-    username => `echo -n \`cat ../etc/username.key\``,
-    password => `echo -n \`cat ../etc/password.key\``,
+    username => $rpcuser,
+    password => $rpcpassword,
 );
 
 isa_ok( $client, 'Continuum::BitcoinRPC',
@@ -51,6 +58,4 @@ foreach my $method ( qw (
     cmp_ok( $client->$method( '' )->recv, '=~', qr/\w+/, $method );
 }
 
-done_testing();
-
-
+done_testing;
