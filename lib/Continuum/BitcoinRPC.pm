@@ -148,6 +148,31 @@ Open a pull request
 
 =back
 
+=head2 Installing
+
+These are the modules on which this one depends:
+
+=over
+
+=item *
+L<My fork of AnyEvent::JSONRPC|https://github.com/ciphermonk/anyevent-jsonrpc-perl>
+
+=item *
+L<Continuum|https://github.com/ciphermonk/Continuum>
+
+=item *
+L<Moose|https://metacpan.org/module/Moose>
+
+=item *
+L<namespace:autoclean|https://metacpan.org/module/namespace::autoclean>
+
+=item *
+L<EV|https://metacpan.org/module/EV> (for testing)
+
+=back
+
+In order to run tests, L<bitcoind|http://bitcoin.org> must be available in the application search path.
+
 =head2 Supporting
 
 Like what you see? You can support the project by donating in
