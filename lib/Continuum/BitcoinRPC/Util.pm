@@ -15,7 +15,7 @@ sub JSONToAmount {
 # Integer to fixed point decimal (BTC)
 sub AmountToJSON {
     ( my $value = sprintf( '%.8f', (shift) / 1e8 ) ) =~ s/\.?0+$//;
-    $value;
+    $value; 
 }
 
 1;
