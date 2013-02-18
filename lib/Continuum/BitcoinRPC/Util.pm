@@ -9,13 +9,13 @@ our @EXPORT = (qw(
 
 # Transform a BTC float into Satoshi integer
 sub JSONToAmount {
-    sprintf( '%.0f', 1e8 * shift );
+    sprintf( '%.0f', 1e8 * shift ) + 0;
 }
 
 # Integer to fixed point decimal (BTC)
 sub AmountToJSON {
     ( my $value = sprintf( '%.8f', (shift) / 1e8 ) ) =~ s/\.?0+$//;
-    $value; 
+    $value + 0.0; 
 }
 
 1;
