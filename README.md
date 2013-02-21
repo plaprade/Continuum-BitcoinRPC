@@ -48,7 +48,7 @@ JSON RPC interface on bitcoind, which will fail.
 ## Continuum
 
 You get access to the Continuum API for free using this module.  Every
-call to Continuum::BitcoinRPC return a Portal, so you can write this:
+call to Continuum::BitcoinRPC returns a Portal, so you can write this:
 
 ```perl
     use Continuum;
