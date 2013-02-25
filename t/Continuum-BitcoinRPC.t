@@ -16,7 +16,8 @@ BEGIN {
 
     my $tmp = tempdir(CLEANUP => 1);
     $port = int(rand 32768) + 32768;
-    my $cmd = "bitcoind -testnet -rpcuser=test -rpcpassword=test -rpcport=$port";
+    my $cmd = "bitcoind -testnet -rpcuser=testuser "
+        . "-rpcpassword=testpass -rpcport=$port";
     $clicmd = "$cmd -rpcconnect=127.0.0.1";
     my $pid = fork;
     if ($pid == 0) {
@@ -42,8 +43,8 @@ BEGIN {
 
 my $client = Continuum::BitcoinRPC->new(
     url => "http://127.0.0.1:$port",
-    username => 'test',
-    password => 'test',
+    username => 'testuser',
+    password => 'testpass',
 );
 
 isa_ok( $client, 'Continuum::BitcoinRPC',
