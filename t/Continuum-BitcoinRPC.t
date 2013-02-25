@@ -11,8 +11,9 @@ use Cwd;
 my ($port, $clicmd);
 
 BEGIN { 
-    use_ok( 'Continuum::BitcoinRPC' ); 
     use_ok( 'Continuum' ); 
+    use_ok( 'Continuum::BitcoinRPC' ); 
+    use_ok( 'Continuum::BitcoinRPC::Util', qw( AmountToJSON JSONToAmount ) ); 
 
     my $tmp = tempdir(CLEANUP => 1);
     $port = int(rand 32768) + 32768;
@@ -47,27 +48,79 @@ my $client = Continuum::BitcoinRPC->new(
     password => 'testpass',
 );
 
-isa_ok( $client, 'Continuum::BitcoinRPC',
-    'Continuum::BitcoinRPC instance' );
+subtest rpc_client => sub {
 
-foreach my $method ( qw(
-    get_balance
-    getbalance
-    getBalance
-    GetBalance
-)){
-    cmp_ok( $client->$method->recv, '>=', 0, $method );
-}
+    plan tests => 9;
 
-foreach my $method ( qw (
-    get_account_address
-    getaccountaddress
-    getAccountAddress
-    GetAccountAddress
-)){
-    cmp_ok( $client->$method( '' )->recv, '=~', qr/\w+/, $method );
-}
+    isa_ok( $client, 'Continuum::BitcoinRPC',
+        'Continuum::BitcoinRPC instance' );
+
+    foreach my $method ( qw(
+        get_balance
+        getbalance
+        getBalance
+        GetBalance
+    )){
+        cmp_ok( $client->$method->recv, '>=', 0, $method );
+    }
+
+    foreach my $method ( qw (
+        get_account_address
+        getaccountaddress
+        getAccountAddress
+        GetAccountAddress
+    )){
+        cmp_ok( $client->$method( '' )->recv, '=~', qr/\w+/, $method );
+    }
+
+};
+
+subtest AmountToJSON => sub {
+
+    plan tests => 4;
+
+    cmp_ok( AmountToJSON( 1 ), '==', 0.00000001,
+        'AmountToJSON 1 satoshi' );
+
+    cmp_ok( AmountToJSON( 100010000 ), '==', , 1.0001,
+        'AmountToJSON 4 digit precision' );
+
+    cmp_ok( AmountToJSON( 100001 ), '==', 0.00100001,
+        'AmountToJSON 8 decimal precision' );
+
+    cmp_ok( AmountToJSON( 2100000000000000 ), '==', 21000000,
+        'AmountToJSON 21 million coins' );
+};
+
+subtest JSONToAmount => sub {
+
+    plan tests => 7;
+
+    cmp_ok( JSONToAmount( 0.00000001 ), '==', 1,
+        'JSONToAmount 1 satoshi' );
+
+    cmp_ok( JSONToAmount( 0.000000006 ), '==', 1,
+        'JSONToAmount round to 1 satoshi' );
+
+    cmp_ok( JSONToAmount( 0.000000004 ), '==', 0,
+        'JSONToAmount round to 0 satoshi' );
+
+    cmp_ok( JSONToAmount( 1.0001 ), '==', , 100010000,
+        'JSONToAmount 4 digit precision' );
+
+    cmp_ok( JSONToAmount( 0.00100001 ), '==', 100001,
+        'JSONToAmount 8 decimal precision' );
+
+    cmp_ok( JSONToAmount( 21000000 ), '==', 2100000000000000,
+        'JSONToAmount 21 million coins' );
+
+    # 1.1 + 2.2 == 3.3 fails in perl due to float point precision
+    # Working with satoshi integer fixes this issue
+    cmp_ok( JSONToAmount( 1.1 + 2.2 ), '==', 330000000,
+        'JSONToAmount 1.1 + 2.2 = 3.3' );
+};
 
 system "$clicmd stop 2>/dev/null";
 wait;
+
 done_testing;
