@@ -154,8 +154,8 @@ These are the modules on which this one depends:
 
 =over
 
-=item *
-L<My fork of AnyEvent::JSONRPC|https://github.com/ciphermonk/anyevent-jsonrpc-perl>
+=item * L<My fork of
+AnyEvent::JSONRPC|https://github.com/ciphermonk/anyevent-jsonrpc-perl>
 
 =item *
 L<Continuum|https://github.com/ciphermonk/Continuum>
@@ -164,10 +164,13 @@ L<Continuum|https://github.com/ciphermonk/Continuum>
 L<Moose|https://metacpan.org/module/Moose>
 
 =item *
-L<namespace:autoclean|https://metacpan.org/module/namespace::autoclean>
+L<namespace::autoclean|https://metacpan.org/module/namespace::autoclean>
 
 =item *
 L<EV|https://metacpan.org/module/EV> (for testing)
+
+=item * L<Test::Bitcoin::Daemon|https://github.com/eroot/perl-test-bitcoind>
+(for testing)
 
 =back
 

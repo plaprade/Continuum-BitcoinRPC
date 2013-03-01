@@ -93,8 +93,10 @@ These are the modules on which this one depends:
 - [My fork of AnyEvent::JSONRPC](https://github.com/ciphermonk/anyevent-jsonrpc-perl)
 - [Continuum](https://github.com/ciphermonk/Continuum)
 - [Moose](https://metacpan.org/module/Moose)
-- [namespace:autoclean](https://metacpan.org/module/namespace::autoclean)
+- [namespace::autoclean](https://metacpan.org/module/namespace::autoclean)
 - [EV](https://metacpan.org/module/EV) (for testing)
+- [Test::Bitcoin::Daemon](https://github.com/eroot/perl-test-bitcoind)
+(for testing)
 
 In order to run tests, [bitcoind](http://bitcoin.org) must be available in the application search path.
 

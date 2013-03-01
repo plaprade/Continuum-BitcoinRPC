@@ -4,48 +4,20 @@ use warnings;
 use EV;
 use Test::More;
 use Data::Dumper;
-use File::Temp qw(tempdir);
-use POSIX ":sys_wait_h";
-use Cwd;
-
-my ($port, $clicmd);
 
 BEGIN { 
     use_ok( 'Continuum' ); 
     use_ok( 'Continuum::BitcoinRPC' ); 
     use_ok( 'Continuum::BitcoinRPC::Util', qw( AmountToJSON JSONToAmount ) ); 
-
-    my $tmp = tempdir(CLEANUP => 1);
-    $port = int(rand 32768) + 32768;
-    my $cmd = "bitcoind -testnet -rpcuser=testuser "
-        . "-rpcpassword=testpass -rpcport=$port";
-    $clicmd = "$cmd -rpcconnect=127.0.0.1";
-    my $pid = fork;
-    if ($pid == 0) {
-        chdir $tmp;
-        my $srvcmd = "$cmd -listen=0 -server -datadir='$tmp'";
-        exec $srvcmd;
-    } elsif ($pid < 0) {
-        fail "Could not launch bitcoind";
-        done_testing;
-        exit;
-    }
-
-    $SIG{CHLD} = sub {
-        while ((my $child = waitpid(-1, WNOHANG)) > 0) {
-            if ($child == $pid) {
-                die "bitcoind died";
-            }
-        }
-    };
-
-    sleep 1 while system("$clicmd getinfo 2>/dev/null") != 0;
+    use_ok( 'Test::Bitcoin::Daemon' );
 }
 
+my $bitcoind = new Test::Bitcoin::Daemon;
+
 my $client = Continuum::BitcoinRPC->new(
-    url => "http://127.0.0.1:$port",
-    username => 'testuser',
-    password => 'testpass',
+    url => $bitcoind->url,
+    username => $bitcoind->username,
+    password => $bitcoind->password,
 );
 
 subtest rpc_client => sub {
@@ -119,8 +91,5 @@ subtest JSONToAmount => sub {
     cmp_ok( JSONToAmount( 1.1 + 2.2 ), '==', 330000000,
         'JSONToAmount 1.1 + 2.2 = 3.3' );
 };
-
-system "$clicmd stop 2>/dev/null";
-wait;
 
 done_testing;
