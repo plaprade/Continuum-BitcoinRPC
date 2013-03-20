@@ -1,4 +1,8 @@
-# Continuum::BitcoinRPC - Asynchronous BitcoinRPC client
+# NAME
+
+Continuum::BitcoinRPC - Asynchronous BitcoinRPC client
+
+# DESCRIPTION
 
 Continuum::BitcoinRPC is a client that interfaces the RPC commands of
 the Satoshi bitcoin implementation ([Satoshi Node](http://github.com/bitcoin/bitcoin)). It is built on top of the
@@ -15,20 +19,20 @@ Usage is quite simple:
     # Set your RPC username/password in ~/.bitcoin/bitcoin.conf
     my $client = Continuum::BitcoinRPC->new(
         url => 'http://127.0.0.1:18332',
-        username => 'rpc_username',
-        password => 'rpc_password',
+        username => 'rpc\_username',
+        password => 'rpc\_password',
     );
 
     # Blocking call
-    my $balance = $client->get_balance->recv;
+    my $balance = $client->get\_balance->recv;
 
     # Non-blocking call
-    $client->get_balance->then( sub {
+    $client->get\_balance->then( sub {
         my $balance = shift;
     });
 
     # Underscores and case are ignored. These are equivalent:
-    $client->get_balance;
+    $client->get\_balance;
     $client->getbalance;
     $client->getBalance;
     $client->GetBalance;
@@ -56,7 +60,7 @@ call to Continuum::BitcoinRPC returns a Portal, so you can write this:
     $client->GetBalance( 'fred' )
         ->merge( $client->GetAccountAddress( 'fred' ) )
         ->then( sub {
-            my ( $balance, $account ) = @_;
+            my ( $balance, $account ) = @\_;
             ...
         });
 ```
@@ -81,9 +85,9 @@ You can also submit a patch.
 We're glad you want to contribute! It's simple:
 
 - Fork Continuum::BitcoinRPC
-- Create a branch `git checkout -b my_branch`
+- Create a branch `git checkout -b my\_branch`
 - Commit your changes `git commit -am 'comments'`
-- Push the branch `git push origin my_branch`
+- Push the branch `git push origin my\_branch`
 - Open a pull request
 
 ## Installing
