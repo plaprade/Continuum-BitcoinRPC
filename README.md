@@ -19,20 +19,20 @@ Usage is quite simple:
     # Set your RPC username/password in ~/.bitcoin/bitcoin.conf
     my $client = Continuum::BitcoinRPC->new(
         url => 'http://127.0.0.1:18332',
-        username => 'rpc\_username',
-        password => 'rpc\_password',
+        username => 'rpc_username',
+        password => 'rpc_password',
     );
 
     # Blocking call
-    my $balance = $client->get\_balance->recv;
+    my $balance = $client->get_balance->recv;
 
     # Non-blocking call
-    $client->get\_balance->then( sub {
+    $client->get_balance->then( sub {
         my $balance = shift;
     });
 
     # Underscores and case are ignored. These are equivalent:
-    $client->get\_balance;
+    $client->get_balance;
     $client->getbalance;
     $client->getBalance;
     $client->GetBalance;
@@ -60,7 +60,7 @@ call to Continuum::BitcoinRPC returns a Portal, so you can write this:
     $client->GetBalance( 'fred' )
         ->merge( $client->GetAccountAddress( 'fred' ) )
         ->then( sub {
-            my ( $balance, $account ) = @\_;
+            my ( $balance, $account ) = @_;
             ...
         });
 ```
@@ -85,9 +85,9 @@ You can also submit a patch.
 We're glad you want to contribute! It's simple:
 
 - Fork Continuum::BitcoinRPC
-- Create a branch `git checkout -b my\_branch`
+- Create a branch `git checkout -b my_branch`
 - Commit your changes `git commit -am 'comments'`
-- Push the branch `git push origin my\_branch`
+- Push the branch `git push origin my_branch`
 - Open a pull request
 
 ## Installing
