@@ -1,4 +1,8 @@
-# Continuum::BitcoinRPC - Asynchronous BitcoinRPC client
+# NAME
+
+Continuum::BitcoinRPC - Asynchronous BitcoinRPC client
+
+# DESCRIPTION
 
 Continuum::BitcoinRPC is a client that interfaces the RPC commands of
 the Satoshi bitcoin implementation ([Satoshi Node](http://github.com/bitcoin/bitcoin)). It is built on top of the

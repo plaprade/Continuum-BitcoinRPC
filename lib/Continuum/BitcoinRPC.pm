@@ -52,7 +52,11 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 Continuum::BitcoinRPC - Asynchronous BitcoinRPC client
+=head1 NAME
+
+Continuum::BitcoinRPC - Asynchronous BitcoinRPC client
+
+=head1 DESCRIPTION
 
 Continuum::BitcoinRPC is a client that interfaces the RPC commands of
 the Satoshi bitcoin implementation (L<Satoshi
