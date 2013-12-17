@@ -6,7 +6,7 @@ Continuum::BitcoinRPC - Asynchronous BitcoinRPC client
 
 Continuum::BitcoinRPC is a client that interfaces the RPC commands of
 the Satoshi bitcoin implementation ([Satoshi Node](http://github.com/bitcoin/bitcoin)). It is built on top of the
-[Continuum](http://github.com/ciphermonk/Continuum) framework to
+[Continuum](http://github.com/plaprade/Continuum) framework to
 provide a powerful asynchronous API. Continuum::BitcoinRPC is meant to
 run within an event loop environment such as [Mojolicious](http://search.cpan.org/perldoc?Mojolicious) or
 [AnyEvent](http://search.cpan.org/perldoc?AnyEvent).
@@ -69,14 +69,14 @@ GetBalance and GetAccountAddress are computed in parallel. Once both
 of them are completed, the callback in `then` is called with the
 values. 
 
-Please head to the [Continuum](http://github.com/ciphermonk/Continuum)
+Please head to the [Continuum](http://github.com/plaprade/Continuum)
 project page for more details.
 
 ## Bugs
 
 Please report any bugs in the projects bug tracker:
 
-[http://github.com/ciphermonk/Continuum-BitcoinRPC/issues](http://github.com/ciphermonk/Continuum-BitcoinRPC/issues)
+[http://github.com/plaprade/Continuum-BitcoinRPC/issues](http://github.com/plaprade/Continuum-BitcoinRPC/issues)
 
 You can also submit a patch.
 
@@ -94,8 +94,8 @@ We're glad you want to contribute! It's simple:
 
 These are the modules on which this one depends:
 
-- [My fork of AnyEvent::JSONRPC](https://github.com/ciphermonk/anyevent-jsonrpc-perl)
-- [Continuum](https://github.com/ciphermonk/Continuum)
+- [My fork of AnyEvent::JSONRPC](https://github.com/plaprade/anyevent-jsonrpc-perl)
+- [Continuum](https://github.com/plaprade/Continuum)
 - [Moose](https://metacpan.org/module/Moose)
 - [namespace::autoclean](https://metacpan.org/module/namespace::autoclean)
 - [EV](https://metacpan.org/module/EV) (for testing)
