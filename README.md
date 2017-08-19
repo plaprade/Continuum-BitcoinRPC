@@ -1,3 +1,5 @@
+Continuum::BitcoinRPC has been discontinued and kept here for historical reasons
+
 # NAME
 
 Continuum::BitcoinRPC - Asynchronous BitcoinRPC client
