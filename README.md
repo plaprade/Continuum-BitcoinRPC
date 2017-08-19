@@ -105,10 +105,3 @@ These are the modules on which this one depends:
 (for testing)
 
 In order to run tests, [bitcoind](http://bitcoin.org) must be available in the application search path.
-
-## Supporting
-
-Like what you see? You can support the project by donating in
-[Bitcoins](http://www.weusecoins.com/) to:
-
-__17YWBJUHaiLjZWaCyPwcV8CJDpfoFzc8Gi__
